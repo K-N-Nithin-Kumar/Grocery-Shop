@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- body -->
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>fresh and <span>organic</span> products for your</h3>
+        <p>We are committed to sell fresh and organic fruits and vegetables at affordable prices</p>
+        <a href="/" class="btn">shop now</a>
+        <img src="" alt="">
+    </div>
+
+</section>
+
+
+
+<!-- home section ends -->
+
+
+<!-- features section starts  -->
+
+<section class="features" id="features">
+
+    <h1 class="heading"> our <span>features</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="https://i.pinimg.com/originals/b3/34/d4/b334d4d4d0c3250cdeb88f46919b3f4b.jpg" alt="">
+            <h3>fresh and organic</h3>
+            <p>We sell the fruits and vegetables directly purchased from our farmers</p>
+            <a href="#" class="btn">read more</a>
+        </div>
+
+        <div class="box">
+            <img src="https://thumbs.dreamstime.com/z/contactless-delivery-concept-touch-free-safe-shipment-carboard-box-order-online-shop-178283372.jpg" alt="">
+            <h3>free delivery</h3>
+            <p>We provide the free and contact less (via drones) delivery with in the radius of 15Kms</p>
+            <a href="#" class="btn">read more</a>
+        </div>
+
+        <div class="box">
+            <img src="https://th.bing.com/th/id/OIP.NeEmIh3NBZ7MoBiM_FjYKgHaEK?pid=ImgDet&rs=1" alt="">
+            <h3>easy payments</h3>
+            <p>We accept all the modes of payments(including cash)</p>
+            <a href="#" class="btn">read more</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- features section ends -->
+
+<!-- products section starts  -->
+
+<section class="products" id="products">
+
+    <h1 class="heading"> our <span>products</span> </h1>
+
+    <div class="swiper product-slider">
+
+        <div class="swiper-wrapper">
+           {% for product in products %}
+           <div id={{product.id}}>
+            <div class="swiper-slide box">
+                <img src="{{product.image.url}}" alt="">
+                <h3>{{product.name}}</h3>
+                <div class="price">{{product.price|currency}} </div>
+                {% if product|is_in_cart:request.session.cart %}
+                <div class="row no-gutters">
+    							<form action="/#{{product.id}}" class="col-2 " method="post">
+    								{% csrf_token %}
+    								<input hidden type="text" name='product' value='{{product.id}}'>
+    								<input hidden type="text" name='remove' value='True'>
+<!--    								<input type="submit" value=" - " class="btn btn-block btn-light border-right">-->
+                                    <input type="submit" value=" - " class="btn border-right">
+    							</form>
+    							<div class="text-center col">{{product|cart_quantity:request.session.cart}} in Cart</div>
+    							<form action="/#{{product.id}}" class="col-2 " method="post">
+    								{% csrf_token %}
+    								<input hidden type="text" name='product' value='{{product.id}}'>
+<!--    								<input type="submit" value=" + " class="btn btn-block btn-light border-left">-->
+                                    <input type="submit" value=" + " class="btn border-left">
+    							</form>
+    						</div>
+                {% else %}
+                <form action="/#{{product.id}}" method="POST" class="btn">
+    							{% csrf_token %}
+    							<input hidden type="text" name='product' value='{{product.id}}'>
+<!--    							<input type="submit" class="float-right btn btn-light  form-control"-->
+<!--    								value="Add To Cart">-->
+                                <input type="submit" class="float-right btn  form-control"
+    								value="Add To Cart">
+    						</form>
+    						{% endif %}
+            </div>
+         </div>
+         {% endfor %}
+      </div>
+      </div>
+</section>
+
+<!-- products section ends -->
+
+<!-- categories section starts  -->
+
+<section class="categories" id="categories">
+
+    <h1 class="heading"> product <span>categories</span> </h1>
+
+    <div class="box-container">
+        {% for category in categories %}
+        <div class="box">
+            <img src="image/cat-1.png" alt="">
+            <h3>{{category.name}}</h3>
+            <p>upto 45% off</p>
+            <a href="/?category={{category.id}}" class="btn">shop now</a>
+        </div>
+          {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- categories section ends -->
+
+<!-- review section starts  -->
+
+<section class="review" id="review">
+
+    <h1 class="heading"> customer's <span>review</span> </h1>
+
+    <div class="swiper review-slider">
+
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide box">
+                <img src="	https://ncops.ac.in/admin/photo/7/faculty/18/240.jpg" alt="">
+                <p>I am the customer of KNK stores since 5 years they never compromise in terms of quality of produccts they offers<br>And the prices also reasonable when compare to other big gaints</p>
+                <h3>Mr Prashant B S</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide box">
+                <img src="image/pic-2.png" alt="">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde sunt fugiat dolore ipsum id est maxime ad tempore quasi tenetur.</p>
+                <h3>john deo</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide box">
+                <img src="image/pic-3.png" alt="">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde sunt fugiat dolore ipsum id est maxime ad tempore quasi tenetur.</p>
+                <h3>john deo</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide box">
+                <img src="image/pic-4.png" alt="">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde sunt fugiat dolore ipsum id est maxime ad tempore quasi tenetur.</p>
+                <h3>john deo</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- review section ends -->
+
+<!-- blogs section starts  -->
+
+<!-- blogs section ends -->
+
+<!-- footer section starts  -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3> KNK e-Dukhan <i class="fas fa-shopping-basket"></i> </h3>
+            <p>#91 MG Road Hindupur</p>
+            <div class="share">
+                <a href="" class="fab fa-facebook-f"></a>
+                <a href="" class="fab fa-twitter"></a>
+                <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="links"> <i class="fas fa-phone"></i> 7483065396 </a>
+            <a href="#" class="links"> <i class="fas fa-phone"></i> 6360808430 </a>
+            <a href="#" class="links"> <i class="fas fa-envelope"></i> nithinkumar@gmail.com </a>
+            <a href="#" class="links"> <i class="fas fa-map-marker-alt"></i>Shop number 91/ MG road Hindupur </a>
+        </div>
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="#" class="links"> <i class="fas fa-arrow-right"></i> home </a>
+            <a href="#" class="links"> <i class="fas fa-arrow-right"></i> features </a>
+            <a href="#" class="links"> <i class="fas fa-arrow-right"></i> products </a>
+            <a href="#" class="links"> <i class="fas fa-arrow-right"></i> categories </a>
+            <a href="#" class="links"> <i class="fas fa-arrow-right"></i> review </a>
+        </div>
+
+<!--        <div class="box">-->
+<!--            <h3>newsletter</h3>-->
+<!--            <p>subscribe for latest updates</p>-->
+<!--            <input type="email" placeholder="your email" class="email">-->
+<!--            <input type="submit" value="subscribe" class="btn">-->
+<!--            <img src="payment.png" class="payment-img" alt="">-->
+<!--        </div>-->
+
+    </div>
+
+    <div class="credit"> made with <i class="far fa-heart"></i><br><span> K N Nithin Kumar </span><br><span> Sujan S M </span>
+     </div>
+
+</section>
+{% endblock %}
+<!-- footer section ends -->

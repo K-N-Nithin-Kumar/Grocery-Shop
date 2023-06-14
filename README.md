@@ -16,4 +16,4 @@ steps
 9]Now Move Your project directory inside your env
 10]Then Run this cmd **python manage.py runserver** as a result server is running and the page is opened in default web browser
 
-any queries contact me via my email :** nithinkumar559pucspc@gmail.com** I am happy to help you😊
+Any queries Comment here
